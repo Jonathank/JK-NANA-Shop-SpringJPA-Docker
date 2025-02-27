@@ -25,7 +25,6 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Product {
@@ -34,7 +33,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String branch;
+    private String brand;
     private BigDecimal price;
     private int invetory; //quantity
     private String description;
@@ -45,4 +44,24 @@ public class Product {
     
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image>images;
+
+    /**
+     * @param name
+     * @param brand
+     * @param price
+     * @param invetory
+     * @param description
+     * @param category
+     */
+    public Product(String name, String brand, BigDecimal price, int invetory, String description, Category category) {
+	this.name = name;
+	this.brand = brand;
+	this.price = price;
+	this.invetory = invetory;
+	this.description = description;
+	this.category = category;
+    }
+    
+    
+    
 }

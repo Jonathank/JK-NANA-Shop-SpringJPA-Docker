@@ -25,6 +25,7 @@ import lombok.Setter;
 @Entity
 public class Category {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,4 +33,13 @@ public class Category {
     
     @OneToMany(mappedBy ="category")
     private List<Product>products;
+
+    /**
+     * @param name
+     */
+    public Category(String name) {
+	this.name = name;
+    }
+    
+    
 }
