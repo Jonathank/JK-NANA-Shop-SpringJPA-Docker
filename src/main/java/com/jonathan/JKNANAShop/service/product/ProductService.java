@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.jonathan.JKNANAShop.exception.ResourceNotFoundException;
 import com.jonathan.JKNANAShop.exception.product.ProductNotFoundException;
 import com.jonathan.JKNANAShop.model.Category;
 import com.jonathan.JKNANAShop.model.Product;
@@ -60,7 +61,7 @@ public class ProductService implements IProductService{
 	return productRepo.findById(productId)
 		.map(existinfProduct -> updateExistingProduct(existinfProduct,request))
 		.map(productRepo::save)
-		.orElseThrow(()-> new ProductNotFoundException("Product not found!"));
+		.orElseThrow(()-> new ResourceNotFoundException("Product not found!"));
     }
     
     private Product updateExistingProduct(Product existinfProduct, ProductUpdateRequest request) {
@@ -79,14 +80,14 @@ public class ProductService implements IProductService{
     @Override
     public Product getProductById(Long productId) {
 	return productRepo.findById(productId)
-		.orElseThrow(()->  new ProductNotFoundException("Product not found!"));
+		.orElseThrow(()->  new ResourceNotFoundException("Product not found!"));
     }
 
     @Override
     public void deleteProduct(Long productId) {
 	productRepo.findById(productId)
 	.ifPresentOrElse(productRepo::delete,
-		()-> {throw new ProductNotFoundException("Product not found!");});
+		()-> {throw new ResourceNotFoundException("Product not found!");});
     }
 
     @Override
