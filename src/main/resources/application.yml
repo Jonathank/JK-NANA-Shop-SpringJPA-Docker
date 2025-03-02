@@ -16,12 +16,6 @@ spring:
       hibernate:
         format_sql: true  # Correct way to format SQL output
 
-  # Enable Transactional Logging (Optional)
-  logging:
-    level:
-      org.hibernate.SQL: DEBUG
-      org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-
 # Correcting the API Prefix Setting
 api:
   prefix: /api/v1
