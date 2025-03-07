@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.jonathan.JKNANAShop.repository.product;
+package com.jonathan.JKNANAShop.repository;
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ import com.jonathan.JKNANAShop.model.Product;
  * @author JONATHAN
  */
 public interface ProductRepository extends JpaRepository<Product,Long>{
+    
     /**
      * @param category
      * @return
@@ -51,6 +52,10 @@ public interface ProductRepository extends JpaRepository<Product,Long>{
      * @return
      */
     Long countByBrandAndName(String brand, String name);
+    /**
+     * @return
+     */
+    List<Product> findAllBy();
     
 
 }

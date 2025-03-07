@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.jonathan.JKNANAShop.exception.AlreadyExistException;
 import com.jonathan.JKNANAShop.exception.ResourceNotFoundException;
 import com.jonathan.JKNANAShop.model.Category;
-import com.jonathan.JKNANAShop.repository.category.CategoryRepository;
+import com.jonathan.JKNANAShop.repository.CategoryRepository;
 
 import lombok.RequiredArgsConstructor;
 

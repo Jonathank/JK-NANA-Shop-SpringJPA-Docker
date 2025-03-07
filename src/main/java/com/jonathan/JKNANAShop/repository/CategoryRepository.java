@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.jonathan.JKNANAShop.repository.category;
+package com.jonathan.JKNANAShop.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

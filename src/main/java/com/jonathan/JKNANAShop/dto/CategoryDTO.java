@@ -9,8 +9,8 @@ import lombok.Data;
  * @author JONATHAN
  */
 @Data
-public class ImageDto {
+public class CategoryDTO {
+    private String name;
 
-    private String imageName;
-    private String downloadUrl;
+
 }

@@ -5,15 +5,20 @@ package com.jonathan.JKNANAShop.service.product;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.jonathan.JKNANAShop.dto.ImageDto;
+import com.jonathan.JKNANAShop.dto.ProductDto;
 import com.jonathan.JKNANAShop.exception.ResourceNotFoundException;
-import com.jonathan.JKNANAShop.exception.product.ProductNotFoundException;
 import com.jonathan.JKNANAShop.model.Category;
+import com.jonathan.JKNANAShop.model.Image;
 import com.jonathan.JKNANAShop.model.Product;
-import com.jonathan.JKNANAShop.repository.category.CategoryRepository;
-import com.jonathan.JKNANAShop.repository.product.ProductRepository;
+import com.jonathan.JKNANAShop.repository.CategoryRepository;
+import com.jonathan.JKNANAShop.repository.ImageRepository;
+import com.jonathan.JKNANAShop.repository.ProductRepository;
 import com.jonathan.JKNANAShop.request.AddProductRequest;
 import com.jonathan.JKNANAShop.request.ProductUpdateRequest;
 
@@ -28,6 +33,8 @@ public class ProductService implements IProductService{
 
     private final ProductRepository productRepo;
     private final CategoryRepository categoryRepo;
+    private final ImageRepository imageRepo;
+    private final ModelMapper modelMapper;
     
     @Override
     public Product addProduct(AddProductRequest request) {
@@ -93,7 +100,7 @@ public class ProductService implements IProductService{
     @Override
     public List<Product> getAllProducts() {
 	
-	return productRepo.findAll();
+	return  productRepo.findAllBy();
     }
 
     @Override
@@ -129,6 +136,27 @@ public class ProductService implements IProductService{
     public Long countProductsByBrandAndName(String brand, String name) {
 	
 	return productRepo.countByBrandAndName(brand,name);
+    }
+    
+    @Override
+    public List<ProductDto> getConvertedProducts(List<Product>products){
+	return products.stream().map(this::convertToDto).toList();
+    }
+    
+    @Override
+    public ProductDto convertToDto(Product product) {
+	ProductDto dto = modelMapper.map(product, ProductDto.class);
+	List<Image> images = imageRepo.findByProductId(product.getId());
+	List<ImageDto> imageDtos = images.stream().map(image -> {
+            ImageDto imageDto = new ImageDto();
+           // imageDto.setImageId(image.getId());
+            imageDto.setImageName(image.getFileName());
+            imageDto.setDownloadUrl(image.getDownloadiUrl());  // Ensure this is not null
+            return imageDto;
+        }).collect(Collectors.toList());
+
+        dto.setImages(imageDtos);
+        return dto;
     }
 
 }

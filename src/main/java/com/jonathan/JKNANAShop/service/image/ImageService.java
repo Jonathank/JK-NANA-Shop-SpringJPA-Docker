@@ -17,7 +17,7 @@ import com.jonathan.JKNANAShop.dto.ImageDto;
 import com.jonathan.JKNANAShop.exception.ResourceNotFoundException;
 import com.jonathan.JKNANAShop.model.Image;
 import com.jonathan.JKNANAShop.model.Product;
-import com.jonathan.JKNANAShop.repository.image.ImageRepository;
+import com.jonathan.JKNANAShop.repository.ImageRepository;
 import com.jonathan.JKNANAShop.service.product.IProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -70,7 +70,7 @@ public class ImageService implements IImageService{
 		imageRepo.save(savedImage);
 		
 		ImageDto imageDto = new ImageDto();
-		imageDto.setImageId(savedImage.getId());
+		//imageDto.setImageId(savedImage.getId());
 		imageDto.setImageName(savedImage.getFileName());
 		imageDto.setDownloadUrl(savedImage.getDownloadiUrl());
 		

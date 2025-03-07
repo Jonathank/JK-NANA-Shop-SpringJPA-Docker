@@ -1,12 +1,11 @@
-server:
-  port: 9192
-
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/JK_NANA_SHOP
     username: jon
     password: password
     driver-class-name: org.postgresql.Driver
+    hikari:
+      auto-commit: false  # Disable auto-commit for handling Large Objects
 
   jpa:
     hibernate:
@@ -14,8 +13,13 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        format_sql: true  # Correct way to format SQL output
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true  # Helps with LOB handling in Hibernate
 
-# Correcting the API Prefix Setting
+server:
+  port: 9192
+
 api:
   prefix: /api/v1
